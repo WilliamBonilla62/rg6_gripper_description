@@ -17,17 +17,14 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
-# Source ROS setup and create a workspace
-RUN /bin/bash -c "source /opt/ros/noetic/setup.bash && \
-    mkdir -p ${ROS_WORKSPACE}/src && \
-    cd ${ROS_WORKSPACE} && \
-    catkin_make"
+# Copy build_and_convert.sh into the container
+COPY build_and_convert.sh /ros_ws/build_and_convert.sh
+RUN chmod +x /ros_ws/build_and_convert.sh
 
 # Set environment for ROS workspace
 ENV CATKIN_WS=${ROS_WORKSPACE}
 WORKDIR ${ROS_WORKSPACE}
 RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-RUN echo "source ${ROS_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
 
 # Default command
 CMD ["/bin/bash"]

@@ -13,6 +13,6 @@ docker build -t $IMAGE_NAME .
 echo "[*] Running Docker container with $HOST_SRC_DIR mounted to $DOCKER_WS_DIR/src"
 docker run -it --rm \
     --name $CONTAINER_NAME \
-    -v "$HOST_SRC_DIR":"$DOCKER_WS_DIR/src" \
+    -v "$HOST_SRC_DIR":"$DOCKER_WS_DIR/src/rg6_gripper_description" \
     -w "$DOCKER_WS_DIR" \
     $IMAGE_NAME
